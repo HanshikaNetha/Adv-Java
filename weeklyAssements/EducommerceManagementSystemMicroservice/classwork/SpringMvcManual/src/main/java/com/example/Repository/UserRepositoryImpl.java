@@ -1,0 +1,29 @@
+package com.example.Repository;
+
+import com.example.model.User;
+import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Repository
+public class UserRepositoryImpl implements UserRepository{
+    private List<User> users=new ArrayList<>();
+    public UserRepositoryImpl(){
+        users.add(new User(1L, "John Doe", "john@example.com"));
+        users.add(new User(2L, "Jane Smith", "jane@example.com"));
+
+    }
+    @Override
+    public List<User> findAll(){
+        return  users;
+    }
+    @Override
+    public User findById(Long id){
+        return users.stream().filter(i->i.getId().equals(id)).findFirst().orElse(null);
+    }
+    @Override
+    public void save(User user){
+        users.add(user);
+    }
+}
